@@ -1,7 +1,5 @@
 package testCases;
 
-import static org.testng.Assert.assertThrows;
-
 import java.util.Arrays;
 
 import org.testng.Assert;
@@ -26,28 +24,28 @@ public class TestCase1 {
 	public ExtentHtmlReporter htmlReporter;
 	public ExtentReports extent;
 	public ExtentTest test;
-	
+
 	@BeforeTest
 	public void setReport() {
 		htmlReporter = new ExtentHtmlReporter("./reports/extent.html");
 		htmlReporter.config().setEncoding("utf-8");
-		htmlReporter.config().setDocumentTitle("W2A Automation Reports");
+		htmlReporter.config().setDocumentTitle("W2A Automation OldReports");
 		htmlReporter.config().setReportName("Automation Results");
 		htmlReporter.config().setTheme(Theme.STANDARD);
-		
+
 		extent = new ExtentReports();
 		extent.attachReporter(htmlReporter);
-		
+
 		extent.setSystemInfo("Automation Tester", "Raja N");
 		extent.setSystemInfo("Organisation", "W2Automation");
 		extent.setSystemInfo("Build Number", "100.545.2");
 	}
-	
+
 	@AfterTest
 	public void endReport() {
 		extent.flush();
 	}
-	
+
 	@Test
 	public void doLogin() {
 		test = extent.createTest("Login Test");
@@ -62,40 +60,40 @@ public class TestCase1 {
 	@Test
 	public void IsSkip() {
 		test = extent.createTest("Skip Test");
-//		System.out.println("Executing Skip Test");
+		//		System.out.println("Executing Skip Test");
 		throw new SkipException("Test case is skipped");
 	}
-	
+
 	@AfterMethod()
 	public void tearDown(ITestResult result) {
-			if(result.getStatus() == ITestResult.FAILURE) {
-//				String MethodName = result.getMethod().getMethodName();
-//				String logFile = "<b>"+"TEST CASE: - "+MethodName.toUpperCase()+"</b>";
-//				Markup m = MarkupHelper.createLabel(logFile, ExtentColor.RED);
-//				test.fail(m);
-				
-				
+		if(result.getStatus() == ITestResult.FAILURE) {
+			//				String MethodName = result.getMethod().getMethodName();
+			//				String logFile = "<b>"+"TEST CASE: - "+MethodName.toUpperCase()+"</b>";
+			//				Markup m = MarkupHelper.createLabel(logFile, ExtentColor.RED);
+			//				test.fail(m);
+
+
 			String exceptionMessage = Arrays.toString(result.getThrowable().getStackTrace());
 			test.fail("<details>"+"<summary>"+"<b>"+"<font color = red>"+"Exception Occured:Click to see"+"</font>"
 					+ "</b>"+"</summary>"+exceptionMessage.replaceAll(",", "<br>")+"</details>"+"\n");
-				String failueLogg = "TEST CASE FAILED";
-				Markup m = MarkupHelper.createLabel(failueLogg, ExtentColor.RED);
-				test.log(Status.FAIL, m);
-			}
-				
-			else if(result.getStatus() == ITestResult.SKIP) {
-				String MethodName = result.getMethod().getMethodName();
-				String logFile = "<b>"+"TEST CASE: - "+MethodName.toUpperCase()+"</b>";
-				Markup m = MarkupHelper.createLabel(logFile, ExtentColor.BLUE);
-				test.skip(m);
-			}
-			else if(result.getStatus() == ITestResult.SUCCESS) {
-				String MethodName = result.getMethod().getMethodName();
-				String logFile = "<b>"+"TEST CASE: - "+MethodName.toUpperCase()+"</b>";
-				Markup m = MarkupHelper.createLabel(logFile, ExtentColor.GREEN);
-				test.pass(m);
-			}
-				
+			String failueLogg = "TEST CASE FAILED";
+			Markup m = MarkupHelper.createLabel(failueLogg, ExtentColor.RED);
+			test.log(Status.FAIL, m);
+		}
+
+		else if(result.getStatus() == ITestResult.SKIP) {
+			String MethodName = result.getMethod().getMethodName();
+			String logFile = "<b>"+"TEST CASE: - "+MethodName.toUpperCase()+"</b>";
+			Markup m = MarkupHelper.createLabel(logFile, ExtentColor.BLUE);
+			test.skip(m);
+		}
+		else if(result.getStatus() == ITestResult.SUCCESS) {
+			String MethodName = result.getMethod().getMethodName();
+			String logFile = "<b>"+"TEST CASE: - "+MethodName.toUpperCase()+"</b>";
+			Markup m = MarkupHelper.createLabel(logFile, ExtentColor.GREEN);
+			test.pass(m);
+		}
+
 	}
-	
+
 }

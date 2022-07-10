@@ -19,6 +19,7 @@ public class TestCase2 {
 	public void DoUserReg() {
 		System.out.println("Executing Registration Test");
 		Assert.fail("Execution Failed");
+		System.out.println("Assertion Failed");    // Newly added for git learning
 	}
 
 	@Test
