@@ -20,6 +20,7 @@ public class TestCase2 {
 		System.out.println("Executing Registration Test");
 		Assert.fail("Execution Failed");
 		System.out.println("Assertion Failed");    // Newly added for git learning
+		System.out.println("New commit time 7 monday");
 	}
 
 	@Test
